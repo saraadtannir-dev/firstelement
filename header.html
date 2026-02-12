@@ -1,0 +1,81 @@
+<!-- ELEMENT 1: Pre-Header Announcement Bar -->
+<!-- Copy and paste this entire block into an HTML/Embed block on Systeme.io or Podia -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  .me-preheader * { box-sizing: border-box; margin: 0; padding: 0; }
+  .me-preheader {
+    font-family: 'Cairo', sans-serif;
+    direction: rtl;
+    background-color: #2C3E50;
+    color: #ffffff;
+    padding: 12px 16px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+  }
+  .me-preheader .announcement-text {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.8;
+  }
+  .me-preheader .countdown-inline {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .me-preheader .countdown-numbers {
+    color: #f1c40f;
+    font-weight: 700;
+    direction: ltr;
+    display: inline;
+  }
+  .me-preheader .expired-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #E74C3C;
+  }
+  @media (min-width: 768px) {
+    .me-preheader .announcement-text { font-size: 14px; }
+    .me-preheader .countdown-inline { font-size: 13px; }
+  }
+</style>
+
+<div class="me-preheader" id="me-preheader-bar">
+  <div id="preheader-active">
+    <div class="announcement-text">
+      🎉 عرض محدود: احصل على "Commuter Challenge" الكامل ($110 قيمة) مجاناً! | ينتهي يوم: 21 فبراير 2025 (اليوم الرابع من رمضان)
+    </div>
+    <div class="countdown-inline">
+      <span class="countdown-numbers" id="preheader-countdown"></span>
+    </div>
+  </div>
+  <div id="preheader-expired" style="display:none;">
+    <span class="expired-text">⚠️ انتهى العرض - Commuter Challenge لم يعد متاحاً مجاناً</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  var deadline = new Date("Feb 21, 2025 23:59:59").getTime();
+  var el = document.getElementById("preheader-countdown");
+  var activeEl = document.getElementById("preheader-active");
+  var expiredEl = document.getElementById("preheader-expired");
+  function update(){
+    var now = new Date().getTime();
+    var t = deadline - now;
+    if(t < 0){
+      activeEl.style.display = "none";
+      expiredEl.style.display = "block";
+      return;
+    }
+    var d = Math.floor(t / 86400000);
+    var h = Math.floor((t % 86400000) / 3600000);
+    var m = Math.floor((t % 3600000) / 60000);
+    var s = Math.floor((t % 60000) / 1000);
+    el.innerHTML = d + " يوم : " + h + " ساعة : " + m + " دقيقة : " + s + " ثانية";
+  }
+  update();
+  setInterval(update, 1000);
+})();
+</script>
